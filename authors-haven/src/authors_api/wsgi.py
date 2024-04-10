@@ -10,7 +10,8 @@ https://docs.djangoproject.com/en/4.2/howto/deployment/wsgi/
 import os
 
 from django.core.wsgi import get_wsgi_application
+#TODO: Change the environment variable to 'production' before deploying
 
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "authors_api.settings")
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "authors_api.settings.local")
 
 application = get_wsgi_application()
