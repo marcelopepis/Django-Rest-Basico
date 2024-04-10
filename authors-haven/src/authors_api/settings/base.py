@@ -40,8 +40,8 @@ THIRD_PARTY_APPS = [
     "rest_framework",
     "django_filters",
     "django_countries",
-    "phonenumer_field",
-    "dry_yasg",
+    "phonenumber_field",
+    "drf_yasg",
     "corsheaders",
 ]
 LOCAL_APPS = [
@@ -94,7 +94,7 @@ DATABASES = {
     }
 }
 
-DATABASES = {"default": env.db("DATABASE_URL")}
+#DATABASES = {"default": env.db("DATABASE_URL")}
 
 PASSWORD_HASHERS = [
     "django.contrib.auth.hashers.Argon2PasswordHasher",
@@ -128,7 +128,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = "en-us"
 
-TIME_ZONE = "UTC-4"
+TIME_ZONE = "America/Sao_Paulo"
 
 USE_I18N = True
 
