@@ -1,4 +1,10 @@
 # Byte-compiled / optimized / DLL files
+/authors-haven/src/.vscode
+/authors-haven/src/.idea
+/authors-haven/src/.coverage
+/authors-haven/src/staticfiles
+/authors-haven/src/.envs/*
+!.envs/.local/
 __pycache__/
 *.py[cod]
 *$py.class
