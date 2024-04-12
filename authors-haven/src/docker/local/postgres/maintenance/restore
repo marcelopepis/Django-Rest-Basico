@@ -13,7 +13,7 @@ if[[ -z ${1+x}]]; then
     message_error "Backup filename is required"
     exit 1
 fi
-backup_filename="${BACKUP_FILE_PREFIX}/${1}"
+backup_filename="${BACKUP_DIR_PATH}/${1}"
 
 if[[ ! -f "${backup_filename}"]]; then
     message_error "No backup file found with name ${backup_filename}"
@@ -21,3 +21,28 @@ if[[ ! -f "${backup_filename}"]]; then
 fi
 
 message_welcome "REstoring the backup file ${backup_filename}"
+
+if[[ "${POSTGRES_USER"} == "postgres" ]]; then
+    message_error "The user 'postgres' is not allowed. Assign a different user to the 'POSTGRES_USER' variable in the '.env' file."
+    exit 1
+fi
+
+export PGHOST= "${POSTGRES_HOST}"
+export PGPORT= "${POSTGRES_PORT}"
+export PGUSER= "${POSTGRES_USER}"
+export PGPASSWORD= "${POSTGRES_PASSWORD}"
+export PGDATABASE= "${POSTGRES_DB}"
+
+message.info "Dropping the database ${POSTGRES_DB}"
+
+dropdb"${PGDATABASE}"
+
+message_info "Creating the database ${POSTGRES_DB}"
+
+createdb --owner="${POSTGRES_USER}"
+
+message_info "Restoring the backup file ${backup_filename}"
+
+gunzip -c "${backup_filename}" | psql "${POSTGRES_DB}"
+
+message_success "The backup file ${backup_filename} has been restored successfully"
